@@ -1,593 +1,64 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html>
+<html lang="ar">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>تسجيل تلاميذ - Selim Academy</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --secondary: #f59e0b;
-      --secondary-dark: #d97706;
-      --success: #10b981;
-      --error: #ef4444;
-      --bg: #f8fafc;
-      --card: #ffffff;
-      --text: #1e293b;
-      --text-light: #64748b;
-      --border: #e2e8f0;
-      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-      --radius: 12px;
-      --transition: all 0.3s ease;
-      font-family: "Segoe UI", "Noto Sans Arabic", system-ui, sans-serif;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      line-height: 1.6;
-      color: var(--text);
-      direction: rtl;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 900px;
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-      transition: var(--transition);
-    }
-
-    .header {
-      background: linear-gradient(120deg, var(--primary), var(--primary-dark));
-      color: white;
-      padding: 28px 32px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .header::before {
-      content: "";
-      position: absolute;
-      top: -20px;
-      left: -20px;
-      width: 120px;
-      height: 120px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-    }
-
-    .header::after {
-      content: "";
-      position: absolute;
-      bottom: -30px;
-      right: -30px;
-      width: 160px;
-      height: 160px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-    }
-
-    .logo-container {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 16px;
-    }
-
-    .logo {
-      width: 100px;
-      height: 100px;
-      background: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      position: relative;
-      z-index: 2;
-    }
-
-    .logo i {
-      font-size: 42px;
-      color: var(--primary);
-    }
-
-    .header h1 {
-      margin: 0;
-      font-size: 2.2rem;
-      font-weight: 800;
-      position: relative;
-      z-index: 2;
-    }
-
-    .header span {
-      display: block;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--secondary);
-      margin-top: 4px;
-    }
-
-    .lead {
-      margin: 12px 0 0;
-      font-size: 1.1rem;
-      opacity: 0.9;
-      position: relative;
-      z-index: 2;
-    }
-
-    .form-container {
-      padding: 32px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 8px;
-      color: var(--text);
-      font-size: 0.95rem;
-    }
-
-    .input-wrapper {
-      position: relative;
-    }
-
-    input, textarea, select {
-      width: 100%;
-      padding: 14px 16px;
-      border: 2px solid var(--border);
-      border-radius: 8px;
-      font-size: 1rem;
-      background: #fff;
-      transition: var(--transition);
-      outline: none;
-    }
-
-    input:focus, textarea:focus, select:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
-
-    textarea {
-      min-height: 100px;
-      resize: vertical;
-    }
-
-    .input-icon {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-light);
-    }
-
-    .input-with-icon {
-      padding-left: 45px !important;
-    }
-
-    .radio-group {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-      padding: 8px 0;
-    }
-
-    .radio-option {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-    }
-
-    .radio-option input[type="radio"] {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--primary);
-    }
-
-    .actions {
-      display: flex;
-      gap: 16px;
-      justify-content: flex-end;
-      margin-top: 24px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border);
-    }
-
-    button {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 28px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      font-size: 1rem;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(37, 99, 235, 0.25);
-    }
-
-    .btn-secondary {
-      background: white;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-
-    .btn-secondary:hover {
-      background: #f8fafc;
-      border-color: var(--primary);
-      color: var(--primary);
-    }
-
-    button:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-
-    .note {
-      font-size: 0.9rem;
-      color: var(--text-light);
-      text-align: center;
-      margin-top: 24px;
-      line-height: 1.6;
-    }
-
-    .msg {
-      padding: 16px;
-      border-radius: 8px;
-      margin-top: 20px;
-      display: none;
-      position: relative;
-    }
-
-    .msg.success {
-      background: #f0fdf4;
-      color: #166534;
-      border: 1px solid #bbf7d0;
-    }
-
-    .msg.error {
-      background: #fef2f2;
-      color: #991b1b;
-      border: 1px solid #fecaca;
-    }
-
-    .msg-close {
-      position: absolute;
-      left: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      cursor: pointer;
-      font-size: 18px;
-    }
-
-    .progress-bar {
-      height: 4px;
-      background: var(--border);
-      border-radius: 2px;
-      overflow: hidden;
-      margin-top: 8px;
-      display: none;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: var(--primary);
-      width: 0%;
-      transition: width 0.5s ease;
-    }
-
-    @media (max-width: 768px) {
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .header {
-        padding: 24px 20px;
-      }
-      
-      .form-container {
-        padding: 24px 20px;
-      }
-      
-      .actions {
-        flex-direction: column;
-      }
-      
-      button {
-        justify-content: center;
-      }
-    }
-
-    /* تأثيرات للعناصر عند التحميل */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .form-group {
-      animation: fadeIn 0.5s ease forwards;
-      opacity: 0;
-    }
-
-    .form-group:nth-child(1) { animation-delay: 0.1s; }
-    .form-group:nth-child(2) { animation-delay: 0.2s; }
-    .form-group:nth-child(3) { animation-delay: 0.3s; }
-    .form-group:nth-child(4) { animation-delay: 0.4s; }
-    .form-group:nth-child(5) { animation-delay: 0.5s; }
-    .form-group:nth-child(6) { animation-delay: 0.6s; }
-    .form-group:nth-child(7) { animation-delay: 0.7s; }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نموذج التسجيل</title>
 </head>
 <body>
-  <div class="container">
-    <!-- ====== اللوغو والعنوان ====== -->
-    <div class="header">
-      <div class="logo-container">
-        <div class="logo">
-          <i class="fas fa-graduation-cap"></i>
-        </div>
-      </div>
-      <h1>Selim <span>Academy</span></h1>
-      <p class="lead">Learning & Playing — منصة تسجيل الأطفال</p>
-    </div>
+  <h2>نموذج تسجيل التلاميذ</h2>
 
-    <div class="form-container">
-      <form id="regForm" autocomplete="on">
-        <div class="form-grid">
-          <div class="form-group full">
-            <label for="childName">اسم الطفل</label>
-            <div class="input-wrapper">
-              <input id="childName" name="childName" type="text" placeholder="مثلاً: محمد علي" required />
-              <div class="input-icon">
-                <i class="fas fa-user"></i>
-              </div>
-            </div>
-          </div>
+  <form id="myForm">
+    <label for="childName">اسم التلميذ:</label>
+    <input type="text" id="childName" name="childName" required><br><br>
 
-          <div class="form-group">
-            <label>النوع</label>
-            <div class="radio-group" role="radiogroup" aria-label="جنس الطفل">
-              <label class="radio-option">
-                <input type="radio" name="gender" value="ذكر" checked />
-                <span>ذكر</span>
-              </label>
-              <label class="radio-option">
-                <input type="radio" name="gender" value="أنثى" />
-                <span>أنثى</span>
-              </label>
-            </div>
-          </div>
+    <label for="gender">الجنس:</label>
+    <select id="gender" name="gender" required>
+      <option value="ذكر">ذكر</option>
+      <option value="أنثى">أنثى</option>
+    </select><br><br>
 
-          <div class="form-group">
-            <label for="age">العمر (سنة)</label>
-            <div class="input-wrapper">
-              <input id="age" name="age" type="number" min="2" max="20" placeholder="مثلاً: 7" required />
-              <div class="input-icon">
-                <i class="fas fa-birthday-cake"></i>
-              </div>
-            </div>
-          </div>
+    <label for="age">العمر:</label>
+    <input type="number" id="age" name="age" required><br><br>
 
-          <div class="form-group full">
-            <label for="health">هل يعاني من أية أمراض؟</label>
-            <select id="health" name="health" required>
-              <option value="">اختر...</option>
-              <option value="لا">لا</option>
-              <option value="نعم">نعم</option>
-            </select>
-          </div>
+    <label for="level">المستوى الدراسي:</label>
+    <input type="text" id="level" name="level" required><br><br>
 
-          <div class="form-group full" id="healthDetailsRow" style="display:none">
-            <label for="healthDetails">إن كانت الإجابة نعم، اذكر التفاصيل</label>
-            <textarea id="healthDetails" name="healthDetails" placeholder="مثلاً: حساسية من بعض الأدوية، الربو..."></textarea>
-          </div>
+    <label for="phone">رقم الهاتف:</label>
+    <input type="tel" id="phone" name="phone" required><br><br>
 
-          <div class="form-group full">
-            <label for="guardianPhone">رقم هاتف الولي</label>
-            <div class="input-wrapper">
-              <input id="guardianPhone" name="guardianPhone" type="tel" placeholder="+213 5X XXX XXXX" inputmode="tel" required class="input-with-icon" />
-              <div class="input-icon">
-                <i class="fas fa-phone"></i>
-              </div>
-            </div>
-          </div>
+    <label for="parentEmail">البريد الإلكتروني لولي الأمر:</label>
+    <input type="email" id="parentEmail" name="parentEmail" required><br><br>
 
-          <div class="form-group full">
-            <label for="hobbies">أبرز هوايات الطفل</label>
-            <textarea id="hobbies" name="hobbies" placeholder="مثلاً: كرة قدم، رسم، قراءة"></textarea>
-          </div>
-        </div>
+    <button type="submit">إرسال</button>
+  </form>
 
-        <div class="progress-bar" id="progressBar">
-          <div class="progress-fill" id="progressFill"></div>
-        </div>
+  <!-- EmailJS -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    // ✅ ضع المفتاح العمومي من EmailJS هنا
+    emailjs.init("hwiQNPj5Rl5pmnMRe");
 
-        <div class="actions">
-          <button id="submitBtn" type="submit" class="btn-primary">
-            <i class="fas fa-paper-plane"></i>
-            تأكيد التسجيل
-          </button>
-          <button id="clearBtn" type="button" class="btn-secondary">
-            <i class="fas fa-eraser"></i>
-            تفريغ النموذج
-          </button>
-        </div>
+    document.getElementById("myForm").addEventListener("submit", function(event) {
+      event.preventDefault();
 
-        <div class="full">
-          <div id="msg" class="msg" role="status" aria-live="polite">
-            <span class="msg-close" onclick="hideMsg()"><i class="fas fa-times"></i></span>
-            <span id="msgText"></span>
-          </div>
-          <p class="note">ملاحظة: لحظة الإرسال قد تحتاج اتصال إنترنت فعال. تحفظ Selim Academy سرية البيانات.</p>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- ====== EmailJS SDK ====== -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script>
-    (function(){
-      emailjs.init("hwiQNPj5Rl5pmnMRe"); 
-    })();
-
-    const form = document.getElementById('regForm');
-    const health = document.getElementById('health');
-    const healthDetailsRow = document.getElementById('healthDetailsRow');
-    const msgBox = document.getElementById('msg');
-    const msgText = document.getElementById('msgText');
-    const submitBtn = document.getElementById('submitBtn');
-    const clearBtn = document.getElementById('clearBtn');
-    const progressBar = document.getElementById('progressBar');
-    const progressFill = document.getElementById('progressFill');
-
-    health.addEventListener('change', () => {
-      if (health.value === 'نعم') {
-        healthDetailsRow.style.display = 'block';
-        healthDetailsRow.style.animation = 'fadeIn 0.5s ease forwards';
-      } else {
-        healthDetailsRow.style.display = 'none';
-      }
-    });
-
-    clearBtn.addEventListener('click', () => {
-      form.reset();
-      healthDetailsRow.style.display = 'none';
-      hideMsg();
-    });
-
-    function showMsg(text, type='success'){
-      msgBox.style.display = 'block';
-      msgBox.className = 'msg ' + (type === 'success' ? 'success' : 'error');
-      msgText.textContent = text;
-    }
-    
-    function hideMsg(){ 
-      msgBox.style.display = 'none'; 
-      msgText.textContent = ''; 
-    }
-
-    function simulateProgress() {
-      progressBar.style.display = 'block';
-      let width = 0;
-      const interval = setInterval(() => {
-        if (width >= 90) {
-          clearInterval(interval);
-        } else {
-          width += 5;
-          progressFill.style.width = width + '%';
-        }
-      }, 100);
-      return interval;
-    }
-
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-      hideMsg();
-
-      const data = {
-        childName: document.getElementById('childName').value.trim(),
-        gender: form.elements['gender'].value,
-        age: document.getElementById('age').value.trim(),
-        health: document.getElementById('health').value,
-        healthDetails: document.getElementById('healthDetails').value.trim(),
-        guardianPhone: document.getElementById('guardianPhone').value.trim(),
-        hobbies: document.getElementById('hobbies').value.trim(),
-        schoolName: "Selim Academy",
-        submittedAt: new Date().toLocaleString('ar-EG')
-      };
-
-      if(!data.childName || !data.age || !data.guardianPhone || !data.health){
-        showMsg('المرجو ملء الحقول المطلوبة بشكل صحيح.', 'error');
-        return;
-      }
-
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
-      
-      const progressInterval = simulateProgress();
-
-      const serviceID = 'service_8c4ku1u';
-      const templateID = 'template_g2p1t2s';
-
+      // نجهز المتغيرات مثل التمبلايت الموجود في EmailJS
       const templateParams = {
-        child_name: data.childName,
-        gender: data.gender,
-        age: data.age,
-        health: data.health,
-        health_details: data.healthDetails || 'لا شيء',
-        guardian_phone: data.guardianPhone,
-        hobbies: data.hobbies || 'غير محدد',
-        school_name: data.schoolName,
-        submitted_at: data.submittedAt,
-        email: 'akramtaroos@gmail.com'
-      };
+  name: document.getElementById("childName").value,
+  email: document.getElementById("parentEmail").value,
+  title: "New Registration"
+};
+
+      const serviceID = "service_8c4ku1u";   // ✅ غيرها بخدمة EmailJS الخاصة بك
+      const templateID = "template_g2p1t2s"; // ✅ غيرها بالتمبلايت الخاص بك
 
       emailjs.send(serviceID, templateID, templateParams)
-        .then(function(response){
-          clearInterval(progressInterval);
-          progressFill.style.width = '100%';
-          
-          setTimeout(() => {
-            progressBar.style.display = 'none';
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> تأكيد التسجيل';
-            showMsg('تم إرسال بيانات التسجيل بنجاح! سنرسل تأكيدًا إلى بريدكم الإلكتروني.', 'success');
-            form.reset();
-            healthDetailsRow.style.display = 'none';
-          }, 500);
-        }, function(error){
-          clearInterval(progressInterval);
-          progressBar.style.display = 'none';
-          
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> تأكيد التسجيل';
-          console.error('EmailJS error:', error);
-          showMsg('حدث خطأ أثناء الإرسال. تأكد من إعدادات EmailJS أو حاول لاحقًا.', 'error');
+        .then(function(response) {
+          alert("تم إرسال النموذج بنجاح ✅");
+          console.log("SUCCESS!", response.status, response.text);
+        }, function(error) {
+          alert("حدث خطأ أثناء الإرسال ❌");
+          console.log("FAILED...", error);
         });
     });
   </script>
